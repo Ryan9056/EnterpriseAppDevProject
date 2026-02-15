@@ -10,6 +10,8 @@ It will serve as a constant reminder of the goals they are trying to achieve in 
 
 [Storyboard in FluidUI](https://www.fluidui.com/editor/live/project/p_6nCpmMRpduRmGz5P3D2WvnNwxCnlvKJu)
 
+<img width="1594" height="878" alt="Image" src="https://github.com/user-attachments/assets/a380cfea-7b57-4eaa-a74c-779c3c6f8456" /> 
+
 ## Requirements
 
 1. As a casual runner, I want an app to track my runs, so that I can set goals and see my improvement over the year.
@@ -66,7 +68,7 @@ The Account class will take a username, email, and password attribute. The goal 
 
 ## JSON Schema
 
-This is what we plane to export
+This is what we plan to export
 
 > { 
 "title": "Enterprise Fitness Tracker", 
