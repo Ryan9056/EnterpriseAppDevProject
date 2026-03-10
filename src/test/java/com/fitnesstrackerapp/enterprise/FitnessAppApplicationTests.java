@@ -29,7 +29,7 @@ class FitnessAppApplicationTests {
     private Event templateEvent;
     private Event testEvent;
 
-
+    //Test for creating, fetching, and verifying creation of Account using account name and id
     @Test
     void createAccount_returnsTestAccount() {
         createTestAccount();
@@ -53,7 +53,7 @@ class FitnessAppApplicationTests {
        assertEquals("test",accountName);
     }
 
-
+    //Test for creating, fetching, and verifying creation of Goal using goal name and id
     @Test
     void createGoal_returnsTestGoal() {
         createTestGoal();
@@ -77,7 +77,7 @@ class FitnessAppApplicationTests {
         assertEquals("test",goalName);
     }
 
-
+    //Test for creating, fetching, and verifying creation of Event using event type and id
     @Test
     void createEvent_returnsTestEvent() {
         createTestEvent();
