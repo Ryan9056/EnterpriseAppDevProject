@@ -10,7 +10,7 @@ It will serve as a constant reminder of the goals they are trying to achieve in 
 
 [Storyboard in FluidUI](https://www.fluidui.com/editor/live/project/p_6nCpmMRpduRmGz5P3D2WvnNwxCnlvKJu)
 
-<img width="1594" height="878" alt="Image" src="https://github.com/user-attachments/assets/a380cfea-7b57-4eaa-a74c-779c3c6f8456" /> 
+<img width="1822" height="1192" alt="Image" src="https://github.com/user-attachments/assets/ffd86fe5-cbca-4df0-b3d5-de0c1fd7708b" /> 
 
 ## Requirements
 
