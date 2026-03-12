@@ -46,7 +46,7 @@ It will serve as a constant reminder of the goals they are trying to achieve in 
 
 ## Class Diagram
 
-<img width="1822" height="1192" alt="Class Diagram Image" src="https://github.com/user-attachments/assets/ffd86fe5-cbca-4df0-b3d5-de0c1fd7708b" />
+<img width="1822" height="1192" alt="Image" src="https://github.com/user-attachments/assets/8d9aa0ee-9e41-4b52-8bde-fe2ec4390e6d" />
 
 ### Class Diagram Description
 
