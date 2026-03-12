@@ -1,6 +1,6 @@
 body {
-  margin: 2rem;
-  background-color: lightblue;
+    margin: 2rem;
+    background-color: lightblue;
 }
 
 h2 {
@@ -16,6 +16,7 @@ h3 {
 }
 
 .overflow-auto {
+    background-color: lightgray;
     max-height: 400px;
     width: 30rem;
 }
@@ -26,7 +27,6 @@ h3 {
 }
 
 .otherButtons a {
-    margin-left: 2rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     width: 15rem;
 }
