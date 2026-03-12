@@ -10,7 +10,7 @@ It will serve as a constant reminder of the goals they are trying to achieve in 
 
 [Storyboard in FluidUI](https://www.fluidui.com/editor/live/project/p_6nCpmMRpduRmGz5P3D2WvnNwxCnlvKJu)
 
-<img width="1822" height="1192" alt="Image" src="https://github.com/user-attachments/assets/ffd86fe5-cbca-4df0-b3d5-de0c1fd7708b" /> 
+<img width="1594" height="878" alt="Image" src="https://github.com/user-attachments/assets/0c269895-a49c-4a46-b906-0db1d8f71870" />
 
 ## Requirements
 
@@ -46,7 +46,7 @@ It will serve as a constant reminder of the goals they are trying to achieve in 
 
 ## Class Diagram
 
-<img width="1821" height="1191" alt="Image" src="https://github.com/user-attachments/assets/c5e08e37-5a88-48c7-bca1-c47e07e0b2ee" />
+<img width="1822" height="1192" alt="Class Diagram Image" src="https://github.com/user-attachments/assets/ffd86fe5-cbca-4df0-b3d5-de0c1fd7708b" />
 
 ### Class Diagram Description
 
