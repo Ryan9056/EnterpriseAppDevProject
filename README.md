@@ -100,9 +100,10 @@ This is what we plan to export
       "title": "Goal", 
       "type": "object", 
       "additionalProperties": false, 
-      "required": ["goalId", "goalName", "entryDate", "completionDate"], 
+      "required": ["goalId", "accountId", "goalName", "entryDate", "completionDate"], 
       "properties": { 
-        "goalId": { "type": "integer" }, 
+        "goalId": { "type": "integer" },
+        "accountId": { "type": "integer" },
         "goalName": { "type": "string", "minLength": 1 }, 
         "entryDate": { "type": "string", "format": "date" }, 
         "completionDate": { "type": "string", "format": "date" } 
