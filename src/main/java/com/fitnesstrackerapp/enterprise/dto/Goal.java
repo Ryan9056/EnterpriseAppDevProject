@@ -1,6 +1,9 @@
 package com.fitnesstrackerapp.enterprise.dto;
 
 import lombok.Data;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 /**
  * @author Tanner
  * dto with lombok for Goals, this is a superclass of the types of goals, it will be connected to the account
@@ -11,6 +14,6 @@ public @Data class Goal {
     private int goalId;
     private int accountId;
     private String goalName;
-    private String entryDate;
-    private String completionDate;
+    private LocalDate entryDate;
+    private LocalDate completionDate;
 }

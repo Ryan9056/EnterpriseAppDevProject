@@ -7,7 +7,7 @@ import lombok.Data;
  * goal as their goal type
  */
 public @Data class RepGoal extends Goal {
-    private int typeId;
+    private int repGoalId;
     private String goalType;
     private double repsToComplete;
     private double repsCompleted;
