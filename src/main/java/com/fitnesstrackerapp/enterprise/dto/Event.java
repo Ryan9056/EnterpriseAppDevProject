@@ -12,5 +12,5 @@ public @Data class Event {
     private int goalId;
     private String eventType;
     private String entryDate;
-    private double valueCompleted;
+    private double addedGoalProgress;
 }
