@@ -1,0 +1,32 @@
+body {
+    margin: 2rem;
+    background-color: lightblue;
+}
+
+h2 {
+    margin-top: 2rem;
+}
+
+h3 {
+    margin-top: 1rem;
+}
+
+.container-fluid {
+    margin-top: 1rem;
+}
+
+.overflow-auto {
+    background-color: lightgray;
+    max-height: 400px;
+    width: 30rem;
+}
+
+.card {
+    width: 27rem;
+    padding: 1rem;
+}
+
+.otherButtons a {
+    margin-top: 2rem;
+    width: 15rem;
+}
