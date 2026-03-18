@@ -65,4 +65,19 @@ public class Goal {
     public void setCompletionDate(LocalDate completionDate) {
         this.completionDate = completionDate;
     }
+
+    /**
+     * Returns a string representation of the Goal for debugging purposes.
+     * @return formatted string with goal details
+     */
+    @Override
+    public String toString() {
+        return "Goal{" +
+                "goalId=" + goalId +
+                ", accountId=" + accountId +
+                ", goalName='" + goalName + '\'' +
+                ", entryDate=" + entryDate +
+                ", completionDate=" + completionDate +
+                '}';
+    }
 }
