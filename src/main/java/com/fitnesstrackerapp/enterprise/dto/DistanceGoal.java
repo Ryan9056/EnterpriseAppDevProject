@@ -8,8 +8,8 @@ import lombok.Data;
  */
 
 public @Data class DistanceGoal extends Goal {
-    private int typeId;
+    private int distanceGoalId;
     private String goalType;
-    private double DistanceToComplete;
-    private double DistanceCompleted;
+    private double distanceToComplete;
+    private double distanceCompleted;
 }
