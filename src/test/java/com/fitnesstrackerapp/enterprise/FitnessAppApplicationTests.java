@@ -55,20 +55,20 @@ class FitnessAppApplicationTests {
 
     //Test for creating, fetching, and verifying creation of Goal using goal name and id
     @Test
-    void createGoal_returnsTestGoal() {
+    void createGoal_returnsTestGoal() throws Exception {
         createTestGoal();
         fetchTestGoal();
         returnTestGoal();
     }
 
-    private void createTestGoal() {
+    private void createTestGoal() throws Exception {
         templateGoal = new Goal();
         templateGoal.setGoalId(1);
         templateGoal.setGoalName("test");
         goalService.save(templateGoal);
     }
 
-    private void fetchTestGoal() {
+    private void fetchTestGoal() throws Exception {
         testGoal = goalService.fetchById(templateGoal.getGoalId());
     }
 
