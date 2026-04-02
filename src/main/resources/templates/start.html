@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${dGoal.goalType}" />
                     <p class="card-text" th:text="${dGoal.DistanceToComplete} + '/' + ${dGoal.DistanceCompleted} + ' Completed'" />
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a th:href="@{/viewGoal} " class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${repGoal.goalType}" />
                     <p class="card-text" th:text="${repGoal.repsCompleted} + '/' + ${repGoal.repsToComplete} + ' Completed'" />
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a th:href="@{/viewGoal}" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
