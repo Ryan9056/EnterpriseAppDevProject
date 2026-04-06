@@ -6,5 +6,9 @@ public interface IEventService {
 
     Event fetchById(int eventId);
 
-    Event save(Event event);
+    void save(Event event);
+
+    void delete(int eventId);
+
+    void update(int eventId, Event event);
 }
