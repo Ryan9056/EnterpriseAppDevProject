@@ -54,7 +54,7 @@ class AccountServiceTests {
         updateAccount = new Account();
         updateAccount.setAccountId(2);
         updateAccount.setAccountName("updated");
-        accountService.update(testAccount.getAccountId(), updateAccount);
+        testAccount = accountService.update(updateAccount.getAccountId());
     }
 
     // create new account and save new account

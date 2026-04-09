@@ -23,9 +23,9 @@ public interface IAccountService {
      * @return the saved account object
      */
 
-    void save(Account account);
+    Account save(Account account);
 
-    void update(int accountId, Account account);
+    Account update(int accountId);
 
     void delete(int accountId);
 }

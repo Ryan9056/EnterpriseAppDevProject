@@ -11,8 +11,8 @@ public class EventServiceStub implements IEventService{
     }
 
     @Override
-    public void save(Event event) {
-
+    public Event save(Event event) {
+        return null;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class EventServiceStub implements IEventService{
     }
 
     @Override
-    public void update(int eventId, Event event) {
-
+    public Event update(int eventId) {
+        return null;
     }
 }

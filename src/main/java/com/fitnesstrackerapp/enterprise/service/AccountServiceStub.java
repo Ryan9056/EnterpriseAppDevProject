@@ -11,13 +11,13 @@ public class AccountServiceStub implements IAccountService {
     }
 
     @Override
-    public void save(Account account) {
-
+    public Account save(Account account) {
+        return null;
     }
 
     @Override
-    public void update(int accountId, Account account) {
-
+    public Account update(int accountId) {
+        return null;
     }
 
     @Override

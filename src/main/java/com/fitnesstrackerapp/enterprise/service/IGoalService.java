@@ -6,9 +6,9 @@ public interface IGoalService {
 
     Goal fetchById(int goalId);
 
-    void save(Goal goal);
+    Goal save(Goal goal);
 
     void delete(int goalId);
 
-    void update(int goalId, Goal goal);
+    Goal update(int goalId);
 }

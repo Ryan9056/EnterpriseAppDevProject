@@ -11,7 +11,8 @@ public class GoalServiceStub implements IGoalService {
     }
 
     @Override
-    public void save(Goal goal) {
+    public Goal save(Goal goal) {
+        return null;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class GoalServiceStub implements IGoalService {
     }
 
     @Override
-    public void update(int goalId, Goal goal) {
-
+    public Goal update(int goalId) {
+        return null;
     }
 }

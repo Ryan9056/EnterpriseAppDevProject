@@ -55,7 +55,7 @@ class GoalServiceTests {
         updateGoal = new Goal();
         updateGoal.setGoalId(2);
         updateGoal.setGoalName("updated");
-        goalService.update(testGoal.getGoalId(), updateGoal);
+        testGoal = goalService.update(updateGoal.getGoalId());
     }
 
     // create new Goal and save new Goal

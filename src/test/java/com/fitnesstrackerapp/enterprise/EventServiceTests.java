@@ -54,7 +54,7 @@ class EventServiceTests {
         updateEvent = new Event();
         updateEvent.setEventId(2);
         updateEvent.setEventType("updated");
-        eventService.update(testEvent.getEventId(), updateEvent);
+        testEvent = eventService.update(updateEvent.getEventId());
     }
 
     // create new Event and save new Event
