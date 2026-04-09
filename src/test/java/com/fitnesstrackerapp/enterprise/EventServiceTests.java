@@ -46,7 +46,7 @@ class EventServiceTests {
     // delete Event using Event id then checking is Event is null
     private void deleteTestEvent() {
         eventService.delete(templateEvent.getEventId());
-        assertNull(eventService.fetchById(templateEvent.getEventId()));
+        assertNull(eventService.fetchById(templateEvent.getGoalId(), templateEvent.getEventId()));
     }
 
     // create new Event then update test Event using new Event
@@ -61,13 +61,14 @@ class EventServiceTests {
     private void createTestEvent() {
         templateEvent = new Event();
         templateEvent.setEventId(1);
+        templateEvent.setGoalId(1);
         templateEvent.setEventType("test");
         eventService.save(templateEvent);
     }
 
     // fetch test Event with id
     private void fetchTestEvent() {
-        testEvent = eventService.fetchById(templateEvent.getEventId());
+        testEvent = eventService.fetchById(templateEvent.getGoalId(),templateEvent.getEventId());
     }
 
     // verify Event is the correct

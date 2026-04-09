@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventServiceStub implements IEventService{
     @Override
-    public Event fetchById(int eventId) {
+    public Event fetchById(int goalId, int eventId) {
         return null;
     }
 
