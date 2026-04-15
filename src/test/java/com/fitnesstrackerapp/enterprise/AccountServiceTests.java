@@ -38,7 +38,7 @@ class AccountServiceTests {
 
     // Test for creating, deleting and verifying deletion of an account using account name and id
     @Test
-    void deleteAccount() {
+    void deleteAccount_returnsNull() {
         createTestAccount();
         deleteTestAccount();
     }

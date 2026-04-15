@@ -38,7 +38,7 @@ class EventServiceTests {
 
     // Test for creating, deleting and verifying deletion of an Event using Event name and id
     @Test
-    void deleteEvent() {
+    void deleteEvent_returnsNull() {
         createTestEvent();
         deleteTestEvent();
     }
