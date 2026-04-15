@@ -14,4 +14,5 @@ public @Data class Goal {
     private String goalName;
     private LocalDate entryDate;
     private LocalDate completionDate;
+    private boolean completed;
 }

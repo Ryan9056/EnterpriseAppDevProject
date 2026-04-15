@@ -24,4 +24,8 @@ public interface IAccountService {
      */
 
     Account save(Account account);
+
+    Account update(int accountId);
+
+    void delete(int accountId);
 }

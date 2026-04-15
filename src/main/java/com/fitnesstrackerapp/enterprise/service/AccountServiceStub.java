@@ -14,4 +14,14 @@ public class AccountServiceStub implements IAccountService {
     public Account save(Account account) {
         return null;
     }
+
+    @Override
+    public Account update(int accountId) {
+        return null;
+    }
+
+    @Override
+    public void delete(int accountId) {
+
+    }
 }
