@@ -1,35 +1,44 @@
 package com.fitnesstrackerapp.enterprise;
 
+import com.fitnesstrackerapp.enterprise.dao.EventDAOStub;
+import com.fitnesstrackerapp.enterprise.dao.IEventDAO;
 import com.fitnesstrackerapp.enterprise.dto.Account;
 import com.fitnesstrackerapp.enterprise.dto.Event;
+import com.fitnesstrackerapp.enterprise.service.AccountServiceStub;
+import com.fitnesstrackerapp.enterprise.service.EventServiceStub;
 import com.fitnesstrackerapp.enterprise.service.IEventService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class EventServiceTests {
 
-    @Autowired
     private IEventService eventService;
-    private Event templateEvent;
     private Event testEvent;
     private Event updateEvent;
+
+    @MockitoBean
+    private IEventDAO eventDAO;
 
 
     //Test for creating, fetching, and verifying creation of Event using event type and id
     @Test
-    void createEvent_returnsTestEvent() {
+    void createEvent_returnsTestEvent() throws Exception {
         createTestEvent();
         fetchTestEvent();
         returnTestEvent("test");
     }
     // Test for creating, fetching, updating, and verifying creation of Event using Event name and id
     @Test
-    void updateEvent_returnsUpdatedEvent() {
+    void updateEvent_returnsUpdatedEvent() throws Exception {
         createTestEvent();
         fetchTestEvent();
         updateTestEvent();
@@ -38,43 +47,44 @@ class EventServiceTests {
 
     // Test for creating, deleting and verifying deletion of an Event using Event name and id
     @Test
-    void deleteEvent_returnsNull() {
+    void deleteEvent_returnsNull() throws Exception {
         createTestEvent();
         deleteTestEvent();
     }
 
     // delete Event using Event id then checking is Event is null
-    private void deleteTestEvent() {
-        eventService.delete(templateEvent.getEventId());
-        assertNull(eventService.fetchById(templateEvent.getGoalId(), templateEvent.getEventId()));
+    private void deleteTestEvent() throws Exception {
+        eventService.delete(testEvent.getEventId());
+        assertNull(eventService.fetchById(1));
     }
 
     // create new Event then update test Event using new Event
-    private void updateTestEvent() {
+    private void updateTestEvent() throws Exception {
         updateEvent = new Event();
         updateEvent.setEventId(2);
         updateEvent.setEventType("updated");
-        testEvent = eventService.update(updateEvent.getEventId());
+        testEvent = eventService.update(updateEvent, testEvent.getEventId());
     }
 
     // create new Event and save new Event
-    private void createTestEvent() {
-        templateEvent = new Event();
-        templateEvent.setEventId(1);
-        templateEvent.setGoalId(1);
-        templateEvent.setEventType("test");
-        eventService.save(templateEvent);
+    private void createTestEvent() throws Exception {
+        testEvent = new Event();
+        testEvent.setEventId(1);
+        testEvent.setEventType("test");
+        eventDAO = new EventDAOStub();
+        eventService = new EventServiceStub(eventDAO);
+        eventService.save(testEvent);
     }
 
     // fetch test Event with id
     private void fetchTestEvent() {
-        testEvent = eventService.fetchById(templateEvent.getGoalId(),templateEvent.getEventId());
+        testEvent = eventService.fetchById(1);
     }
 
     // verify Event is the correct
-    private void returnTestEvent(String type) {
-        String eventType = testEvent.getEventType();
-        assertEquals(type,eventType);
+    private void returnTestEvent(String name) throws  Exception {
+        Event createdEvent = eventService.save(testEvent);
+        assertEquals(name, createdEvent.getEventType());
     }
 
 

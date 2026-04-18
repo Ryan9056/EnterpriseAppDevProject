@@ -1,6 +1,9 @@
 package com.fitnesstrackerapp.enterprise.service;
 
 import com.fitnesstrackerapp.enterprise.dto.Account;
+
+import java.util.List;
+
 /**
  * Service interface responsible for managing Account objects.
  * Defines methods for retrieving and saving the accounts data.
@@ -23,9 +26,11 @@ public interface IAccountService {
      * @return the saved account object
      */
 
-    Account save(Account account);
+    Account save(Account account) throws Exception;
 
-    Account update(int accountId);
+    Account update(Account account, int accountId) throws Exception;
 
-    void delete(int accountId);
+    void delete(int accountId) throws Exception;
+
+    List<Account> fetchAll();
 }

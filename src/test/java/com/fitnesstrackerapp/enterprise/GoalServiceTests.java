@@ -1,30 +1,37 @@
 package com.fitnesstrackerapp.enterprise;
 
+import com.fitnesstrackerapp.enterprise.dao.GoalDAOStub;
+import com.fitnesstrackerapp.enterprise.dao.IGoalDAO;
 import com.fitnesstrackerapp.enterprise.dto.Goal;
+import com.fitnesstrackerapp.enterprise.service.GoalServiceStub;
 import com.fitnesstrackerapp.enterprise.service.IGoalService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class GoalServiceTests {
 
 
-    @Autowired
     private IGoalService goalService;
-    private Goal templateGoal;
     private Goal testGoal;
     private Goal updateGoal;
     private List<Goal> goalList;
 
+    @MockitoBean
+    private IGoalDAO goalDAO;
+
     //Test for creating, fetching, and verifying creation of Goal using goal name and id
     @Test
-    void createGoal_returnsTestGoal() {
+    void createGoal_returnsTestGoal() throws Exception {
         createTestGoal();
         fetchTestGoal();
         returnTestGoal("test");
@@ -32,7 +39,7 @@ class GoalServiceTests {
 
     // Test for creating, fetching, updating, and verifying creation of Goal using Goal name and id
     @Test
-    void updateGoal_returnsUpdatedGoal() {
+    void updateGoal_returnsUpdatedGoal() throws Exception {
         createTestGoal();
         fetchTestGoal();
         updateTestGoal();
@@ -41,14 +48,14 @@ class GoalServiceTests {
 
     // Test for creating, deleting and verifying deletion of a Goal using Goal name and id
     @Test
-    void deleteGoal_returnsNull() {
+    void deleteGoal_returnsNull() throws Exception {
         createTestGoal();
         deleteTestGoal();
     }
 
     // Test for creating, setting Active, fetching, and verifying the Goal is Active
     @Test
-    void fetchActiveGoals_returnsActiveGoal() {
+    void fetchActiveGoals_returnsActiveGoal() throws Exception {
         createTestGoal();
         makeTestGoalActive();
         fetchActiveTestGoal();
@@ -57,7 +64,7 @@ class GoalServiceTests {
 
     //Test for creating, setting Completed, fetching, and verifying the Goal is Completed
     @Test
-    void fetchCompletedGoals_returnsCompletedGoal() {
+    void fetchCompletedGoals_returnsCompletedGoal() throws Exception {
         createTestGoal();
         makeTestGoalCompleted();
         fetchCompletedTestGoal();
@@ -90,44 +97,45 @@ class GoalServiceTests {
     }
 
     // delete Goal using Goal id then checking is Goal is null
-    private void deleteTestGoal() {
-        goalService.delete(templateGoal.getGoalId());
-        assertNull(goalService.fetchById(templateGoal.getGoalId()));
+    private void deleteTestGoal() throws Exception {
+        goalService.delete(testGoal.getGoalId());
+        assertNull(goalService.fetchById(testGoal.getGoalId()));
     }
 
     // create new Goal then update test Goal using new Goal
-    private void updateTestGoal() {
+    private void updateTestGoal() throws Exception {
         updateGoal = new Goal();
         updateGoal.setGoalId(2);
         updateGoal.setGoalName("updated");
-        testGoal = goalService.update(updateGoal.getGoalId());
+        testGoal = goalService.update(updateGoal, testGoal.getGoalId());
     }
 
     // create new Goal and save new Goal
-    private void createTestGoal() {
-        templateGoal = new Goal();
-        templateGoal.setGoalId(1);
-        templateGoal.setAccountId(1);
-        templateGoal.setGoalName("test");
-        goalService.save(templateGoal);
+    private void createTestGoal() throws Exception {
+        testGoal = new Goal();
+        testGoal.setGoalId(1);
+        testGoal.setGoalName("test");
+        goalDAO = new GoalDAOStub();
+        goalService = new GoalServiceStub(goalDAO);
+        goalService.save(testGoal);
     }
     private void makeTestGoalActive() {
-        templateGoal.setCompleted(false);
+        testGoal.setCompleted(false);
     }
 
     private void makeTestGoalCompleted() {
-        templateGoal.setCompleted(true);
+        testGoal.setCompleted(true);
     }
 
     // fetch test Goal with id
     private void fetchTestGoal() {
-        testGoal = goalService.fetchById(templateGoal.getGoalId());
+        testGoal = goalService.fetchById(1);
     }
 
     // verify Goal is the correct
-    private void returnTestGoal(String name) {
-        String goalName = testGoal.getGoalName();
-        assertEquals(name,goalName);
+    private void returnTestGoal(String name) throws Exception {
+        Goal createdGoal = goalService.save(testGoal);
+        assertEquals(name, createdGoal.getGoalName());
     }
 
 

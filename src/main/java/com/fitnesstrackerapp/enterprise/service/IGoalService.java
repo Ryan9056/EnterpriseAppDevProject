@@ -8,11 +8,13 @@ public interface IGoalService {
 
     Goal fetchById(int goalId);
 
-    Goal save(Goal goal);
+    Goal save(Goal goal) throws Exception;
 
-    void delete(int goalId);
+    void delete(int goalId) throws Exception;
 
-    Goal update(int goalId);
+    Goal update(Goal goal, int goalId) throws Exception;
+
+    List<Goal> fetchAll();
 
     List<Goal> fetchActiveGoals(int AccountId);
 
