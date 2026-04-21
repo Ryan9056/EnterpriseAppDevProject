@@ -15,9 +15,7 @@
 </head>
 
 <body>
-    <div th:replace="fragments/topnav :: navbar"></div>
-    <h2 th:text="'Hello ' + ${account.accountName}"></h2>
-    <h4>Here are your Goals:</h4>
+    <h4>Completed Goals:</h4>
 
     <div class="container-fluid d-flex" style="height: 400px;">
         <div class="overflow-auto w-50" style="max-height: 100%;">
@@ -41,10 +39,24 @@
         </div>
     </div>
 
-        <div class="w-50 d-flex justify-content-center align-items-center">
-            <div class="d-flex flex-column gap-8">
-                <a href="" class="btn btn-primary">Check Calendar</a>
-                <a th:href="@{/createGoal}" class="btn btn-primary">Create Goal</a>
+    <div class="container-fluid d-flex" style="height: 400px;">
+        <div class="overflow-auto w-50" style="max-height: 100%;">
+            <div th:each="goal : ${goals}" class="card mb-3">
+                <img th:src="@{/images/placeholderbadge.png}" class="card-img-top">
+
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${goal.goalType}"></h5>
+
+                    <!-- DistanceGoal -->
+                    <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
+                       th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
+
+                    <!-- RepGoal -->
+                    <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
+                       th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
+
+                    <a href="#" class="btn btn-primary">View Goal</a>
+                </div>
             </div>
         </div>
     </div>
