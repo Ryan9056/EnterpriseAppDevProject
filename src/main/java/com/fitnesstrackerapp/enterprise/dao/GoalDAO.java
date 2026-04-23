@@ -37,4 +37,20 @@ public class GoalDAO implements IGoalDAO {
                 entityManager.createQuery("SELECT g FROM Goal g", Goal.class);
         return query.getResultList();
     }
+
+    @Override
+    @Transactional
+    public Goal update(Goal goal) throws Exception {
+        return entityManager.merge(goal);
+    }
+
+    @Override
+    @Transactional
+    public void delete(int goalId) throws Exception {
+        Goal goal = entityManager.find(Goal.class, goalId);
+        if (goal != null) {
+            entityManager.remove(goal);
+        }
+    }
+
 }

@@ -9,4 +9,8 @@ public interface IGoalDAO {
     Goal save(Goal goal) throws Exception;
 
     List<Goal> fetchAll() throws Exception;
+
+    void delete(int goalId) throws Exception;
+
+    Goal update(Goal goal) throws Exception;
 }

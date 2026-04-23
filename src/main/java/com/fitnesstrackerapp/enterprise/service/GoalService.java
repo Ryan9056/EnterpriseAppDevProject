@@ -27,4 +27,14 @@ public class GoalService implements IGoalService {
     public List<Goal> fetchAll() throws Exception {
         return goalDAO.fetchAll();
     }
+
+    @Override
+    public Goal update(Goal goal) throws Exception {
+        return goalDAO.update(goal);
+    }
+
+    @Override
+    public void delete(int goalId) throws Exception {
+        goalDAO.delete(goalId);
+    }
 }

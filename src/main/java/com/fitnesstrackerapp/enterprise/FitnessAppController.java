@@ -94,6 +94,25 @@ public class FitnessAppController {
         }
     }
 
+    @PostMapping("/updateGoal")
+    public String updateGoal(@ModelAttribute Goal goal) {
+        try {
+            goalService.update(goal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "start";
+    }
+
+    @GetMapping("/deleteGoal/{id}")
+    public String deleteGoal(@PathVariable int id) {
+        try {
+            goalService.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "start";
+    }
     //Created Page map for the UI
     @GetMapping("/createGoal")
     public String createGoalPage() {

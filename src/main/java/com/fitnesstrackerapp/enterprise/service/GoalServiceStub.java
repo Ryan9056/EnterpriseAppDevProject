@@ -21,4 +21,12 @@ public class GoalServiceStub implements IGoalService {
     public List<Goal> fetchAll() throws Exception {
         return List.of();
     }
-}
+    @Override
+    public Goal update(Goal goal) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void delete(int goalId) throws Exception {
+        return;
+    }}
