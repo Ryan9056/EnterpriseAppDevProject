@@ -47,17 +47,15 @@ public class FitnessAppController {
         //Distance Goal Attributes For Ui
         //Example Data for now
         DistanceGoal dGoal = new DistanceGoal();
-        dGoal.setGoalType("Miles");
-        dGoal.setDistanceToComplete(5);
-        dGoal.setDistanceCompleted(3);
+        dGoal.setDistanceToComplete(5.0);
+        dGoal.setDistanceCompleted(3.0);
         model.addAttribute("dGoal", dGoal);
 
         //Distance Goal Attribute For Ui
         //Example Data for now
         RepGoal repGoal = new RepGoal();
-        repGoal.setGoalType("Sit Ups");
-        repGoal.setRepsToComplete(50);
-        repGoal.setRepsCompleted(32);
+        repGoal.setRepsToComplete(50.0);
+        repGoal.setRepsCompleted(32.0);
         model.addAttribute("repGoal", repGoal);
 
         return ("start");
@@ -78,7 +76,7 @@ public class FitnessAppController {
 
     @GetMapping("/Goals")
     @ResponseBody
-    public List<Goal> FetchAllGoals() throws Exception {return goalService.FetchAll();}
+    public List<Goal> fetchAllGoals() throws Exception {return goalService.fetchAll();}
 
 
     @GetMapping("/viewGoal/{id}")

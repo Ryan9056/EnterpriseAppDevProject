@@ -18,7 +18,7 @@ public class GoalServiceStub implements IGoalService {
     }
 
     @Override
-    public List<Goal> FetchAll() throws Exception {
+    public List<Goal> fetchAll() throws Exception {
         return List.of();
     }
 }

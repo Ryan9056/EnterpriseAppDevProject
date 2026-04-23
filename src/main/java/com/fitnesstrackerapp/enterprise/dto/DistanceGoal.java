@@ -9,43 +9,34 @@ import jakarta.persistence.*;
  */
 
 @Entity
-@Table(name = "distance_goals")
+@DiscriminatorValue("DISTANCE")
 public class DistanceGoal extends Goal {
 
-    @Column(nullable = false, name="goal_type")
-    private String goalType;
+    @Column(name = "DISTANCE_TO_COMPLETE_GOAL")
+    private Double distanceToComplete;
 
-    @Column(nullable = false, name="distance_to_complete_goal")
-    private double distanceToComplete;
+    @Column(name = "DISTANCE_COMPLETED_SO_FAR")
+    private Double distanceCompleted;
 
-    @Column(nullable = false, name="distance_completed_so_far")
-    private double distanceCompleted;
-
-    public DistanceGoal(){}
-
-    public String getGoalType() {
-        return goalType;
+    public DistanceGoal() {
     }
 
-    public void setGoalType(String goalType) {
-        this.goalType = goalType;
-    }
-
-    public double getDistanceToComplete() {
+    public Double getDistanceToComplete() {
         return distanceToComplete;
     }
 
-    public void setDistanceToComplete(double distanceToComplete) {
+    public void setDistanceToComplete(Double distanceToComplete) {
         this.distanceToComplete = distanceToComplete;
     }
 
-    public double getDistanceCompleted() {
+    public Double getDistanceCompleted() {
         return distanceCompleted;
     }
 
-    public void setDistanceCompleted(double distanceCompleted) {
+    public void setDistanceCompleted(Double distanceCompleted) {
         this.distanceCompleted = distanceCompleted;
     }
+
 
     @Override
     public boolean equals(Object obj) {

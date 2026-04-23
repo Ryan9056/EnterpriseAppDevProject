@@ -1,6 +1,7 @@
 package com.fitnesstrackerapp.enterprise.dto;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 /**
@@ -9,43 +10,31 @@ import jakarta.persistence.Table;
  * goal as their goal type
  */
 @Entity
-@Table(name = "rep_goals")
+@DiscriminatorValue("REP")
 public class RepGoal extends Goal {
 
-    @Column(nullable = false, name="goal_type")
-    private String goalType;
+    @Column(name = "REPS_TO_COMPLETE_GOAL")
+    private Double repsToComplete;
 
-    @Column(nullable = false, name="reps_to_complete_goal")
-    private double repsToComplete;
+    @Column(name = "REPS_COMPLETED_SO_FAR")
+    private Double repsCompleted;
 
-    @Column(nullable = false, name="reps_completed_so_far")
-    private double repsCompleted;
-
-    public RepGoal(){}
-
-    // getters and setters
-
-    public String getGoalType() {
-        return goalType;
+    public RepGoal() {
     }
 
-    public void setGoalType(String goalType) {
-        this.goalType = goalType;
-    }
-
-    public double getRepsToComplete() {
+    public Double getRepsToComplete() {
         return repsToComplete;
     }
 
-    public void setRepsToComplete(double repsToComplete) {
+    public void setRepsToComplete(Double repsToComplete) {
         this.repsToComplete = repsToComplete;
     }
 
-    public double getRepsCompleted() {
+    public Double getRepsCompleted() {
         return repsCompleted;
     }
 
-    public void setRepsCompleted(double repsCompleted) {
+    public void setRepsCompleted(Double repsCompleted) {
         this.repsCompleted = repsCompleted;
     }
 
