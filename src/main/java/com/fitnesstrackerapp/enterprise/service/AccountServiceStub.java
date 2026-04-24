@@ -1,7 +1,10 @@
 package com.fitnesstrackerapp.enterprise.service;
 
 import com.fitnesstrackerapp.enterprise.dto.Account;
+import com.fitnesstrackerapp.enterprise.dto.Goal;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class AccountServiceStub implements IAccountService {
@@ -16,12 +19,14 @@ public class AccountServiceStub implements IAccountService {
     }
 
     @Override
-    public Account update(int accountId) {
-        return null;
+    public  Account update(Account account) {return null;}
+
+    @Override
+    public void delete(int accountId){
     }
 
     @Override
-    public void delete(int accountId) {
-
+    public List<Account> fetchAll() throws Exception {
+        return List.of();
     }
 }

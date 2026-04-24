@@ -4,7 +4,6 @@ import com.fitnesstrackerapp.enterprise.dto.Account;
 import com.fitnesstrackerapp.enterprise.dto.DistanceGoal;
 import com.fitnesstrackerapp.enterprise.dto.Goal;
 import com.fitnesstrackerapp.enterprise.dto.RepGoal;
-import com.fitnesstrackerapp.enterprise.service.IAccountService;
 import com.fitnesstrackerapp.enterprise.service.IGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -82,6 +81,58 @@ public class FitnessAppController {
         return "viewGoal";
     }
 
+    @RequestMapping("/saveGoal")
+    public String saveGoal(Goal goal){
+        try {
+            goalService.save(goal);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return "start";
+        }
+
+        return "start";
+    }
+
+    @GetMapping("/Goals")
+    @ResponseBody
+    public List<Goal> fetchAllGoals() throws Exception {return goalService.fetchAll();}
+
+
+    @GetMapping("/viewGoal/{id}")
+    public ResponseEntity<Goal> viewGoalPage(@PathVariable("id") int id) {
+        try {
+            Goal selectedGoal = goalService.fetchById(id);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            return new ResponseEntity<>(selectedGoal, headers, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/updateGoal")
+    public String updateGoal(@ModelAttribute Goal goal) {
+        try {
+            goalService.update(goal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "start";
+    }
+
+    @GetMapping("/deleteGoal/{id}")
+    public String deleteGoal(@PathVariable int id) {
+        try {
+            goalService.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "start";
+    }
     //Created Page map for the UI
     @GetMapping("/createGoal")
     public String createGoalPage() {
