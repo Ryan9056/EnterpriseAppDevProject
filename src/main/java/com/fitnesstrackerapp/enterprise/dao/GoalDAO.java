@@ -19,22 +19,36 @@ public class GoalDAO implements IGoalDAO {
 
     @Override
     public Goal fetchById(int goalId) throws Exception {
-        return entityManager.find(Goal.class, goalId);
+        Goal goal = entityManager.find(Goal.class, goalId);
+
+        if (goal == null) {
+            throw new Exception("Goal not found with id: " + goalId);
+        }
+
+        return goal;
     }
 
     @Override
     @Transactional
-    public Goal save(Goal goal) throws Exception {
-        if (goal.getGoalId() == 0) {
-            entityManager.persist(goal);
-            return goal;
-        } else {
-            return entityManager.merge(goal);
+    public Goal save(Goal goal) {
+        if (goal == null) {
+            throw new RuntimeException("Goal cannot be null");
         }
+
+        if (goal.getAccountId() <= 0) {
+            throw new RuntimeException("Goal must be associated with a valid account");
+        }
+
+        if (goal.getGoalId() != 0) {
+            throw new RuntimeException("New goal should not already have an ID");
+        }
+
+        entityManager.persist(goal);
+        return goal;
     }
 
     @Override
-    public List<Goal> fetchAll() throws Exception {
+    public List<Goal> fetchAll() {
         TypedQuery<Goal> query =
                 entityManager.createQuery("SELECT g FROM Goal g", Goal.class);
         return query.getResultList();
@@ -42,12 +56,20 @@ public class GoalDAO implements IGoalDAO {
 
     @Override
     @Transactional
-    public Goal update(Goal goal) throws Exception {
+    public Goal update(Goal goal) {
+
+        if (goal == null) {
+            throw new RuntimeException("Goal cannot be null");
+        }
+
+        if (goal.getGoalId() == 0) {
+            throw new RuntimeException("Goal must have an id to be updated");
+        }
 
         Goal existingGoal = entityManager.find(Goal.class, goal.getGoalId());
 
         if (existingGoal == null) {
-            throw new Exception("Goal not found with id: " + goal.getGoalId());
+            throw new RuntimeException("Goal not found with id: " + goal.getGoalId());
         }
 
         if (goal.getAccountId() != 0) {
@@ -66,7 +88,7 @@ public class GoalDAO implements IGoalDAO {
                 existingDistanceGoal.setDistanceCompleted(updatedDistanceGoal.getDistanceCompleted());
             }
 
-            return entityManager.merge(existingDistanceGoal);
+            return existingDistanceGoal;
         }
 
         if (existingGoal instanceof RepGoal && goal instanceof RepGoal) {
@@ -81,19 +103,27 @@ public class GoalDAO implements IGoalDAO {
                 existingRepGoal.setRepsCompleted(updatedRepGoal.getRepsCompleted());
             }
 
-            return entityManager.merge(existingRepGoal);
+            return existingRepGoal;
         }
 
-        throw new Exception("Goal type mismatch for id: " + goal.getGoalId());
+        throw new RuntimeException("Goal type mismatch for id: " + goal.getGoalId());
     }
 
     @Override
     @Transactional
-    public void delete(int goalId) throws Exception {
-        Goal goal = entityManager.find(Goal.class, goalId);
-        if (goal != null) {
-            entityManager.remove(goal);
+    public void delete(int goalId) {
+
+        if (goalId <= 0) {
+            throw new RuntimeException("Invalid goal id");
         }
+
+        Goal goal = entityManager.find(Goal.class, goalId);
+
+        if (goal == null) {
+            throw new RuntimeException("Goal not found with id: " + goalId);
+        }
+
+        entityManager.remove(goal);
     }
 
 }
