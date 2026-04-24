@@ -4,6 +4,7 @@ import com.fitnesstrackerapp.enterprise.dto.Account;
 import com.fitnesstrackerapp.enterprise.dto.DistanceGoal;
 import com.fitnesstrackerapp.enterprise.dto.Goal;
 import com.fitnesstrackerapp.enterprise.dto.RepGoal;
+import com.fitnesstrackerapp.enterprise.service.IAccountService;
 import com.fitnesstrackerapp.enterprise.service.IGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -35,33 +36,28 @@ public class FitnessAppController {
     @Autowired
     IGoalService goalService;
 
-    @RequestMapping("/")
-    public String index(Model model){
-        //Account Attributes For Ui
-        //Example Data for now
+    @Autowired
+    IAccountService accountService;
+
+    @ModelAttribute("account")
+    public Account addAccountToModel() {
+        //Example data for now
         Account account = new Account();
         account.setAccountId(1);
         account.setAccountName(DEFAULT_ACCOUNT_NAME);
         account.setEmail(DEFAULT_EMAIL);
         account.setPassword(DEFAULT_PASSWORD);
-        model.addAttribute("account", account);
+        return account;
+    }
 
-        List<Goal> goals = new ArrayList<>();
+    @RequestMapping("/")
+    public String index(Model model){
 
-        DistanceGoal dGoal = new DistanceGoal();
-        dGoal.setGoalType("Miles");
-        dGoal.setDistanceToComplete(5);
-        dGoal.setDistanceCompleted(3);
-        goals.add(dGoal);
-
-        RepGoal repGoal = new RepGoal();
-        repGoal.setGoalType("Sit Ups");
-        repGoal.setRepsToComplete(50);
-        repGoal.setRepsCompleted(32);
-        goals.add(repGoal);
+        // gets fake data from FakeGoalService
+        List<Goal> goals = goalService.fetchActiveGoals(1);
+        model.addAttribute("goals", goals);
 
         //List<Goal> goals = goalService.fetchActiveGoals(account.getAccountId());
-        model.addAttribute("goals", goals);
 
         return "start";
     }
@@ -80,11 +76,10 @@ public class FitnessAppController {
     }
 
     @GetMapping("/viewGoal")
-    public ResponseEntity viewGoalPage(@RequestParam(value="goal", required=true, defaultValue="None") int goalId) {
+    public String viewGoalPage(@RequestParam("goalId") int goalId, Model model) {
         Goal goal = goalService.fetchById(goalId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(goal, headers, HttpStatus.OK);
+        model.addAttribute("goal", goal);
+        return "viewGoal";
     }
 
     //Created Page map for the UI
@@ -94,20 +89,17 @@ public class FitnessAppController {
     }
 
     @GetMapping("/account")
-    public String accountPage() {
+    public String accountPage(Model model) {
         return "account";
-    }
-
-    @GetMapping("/start")
-    public String startPage() {
-        return "start";
     }
 
     @GetMapping("/allGoal")
     public String allGoalPage() {
+
+        List<Goal> activeGoals = goalService.fetchActiveGoals(1);
+        List<Goal> inactiveGoals = goalService.fetchCompletedGoals(1);
         return "allGoal";
     }
-
 
 
 }

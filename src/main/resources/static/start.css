@@ -26,6 +26,13 @@ h3 {
     padding: 1rem;
 }
 
+.goal-image {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain;
+    display: block;
+}
+
 .otherButtons a {
     margin-top: 2rem;
     width: 15rem;

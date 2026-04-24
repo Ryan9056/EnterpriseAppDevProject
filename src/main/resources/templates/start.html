@@ -35,12 +35,12 @@
                     <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
                        th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
 
-                    <a href="#" class="btn btn-primary">View Goal</a>
+                    <a th:href="@{/viewGoal(goalId=${goal.goalId})}" class="btn btn-primary">View Goal</a>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="w-50 d-flex justify-content-center align-items-center">
         <div class="w-50 d-flex justify-content-center align-items-center">
             <div class="d-flex flex-column gap-8">
                 <a href="" class="btn btn-primary">Check Calendar</a>

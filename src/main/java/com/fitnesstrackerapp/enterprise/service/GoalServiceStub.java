@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+//@Component
 public class GoalServiceStub implements IGoalService {
     @Override
     public Goal fetchById(int goalId) {

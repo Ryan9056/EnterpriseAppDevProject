@@ -15,48 +15,36 @@
 </head>
 
 <body>
-    <h4>Completed Goals:</h4>
+    <div th:replace="fragments/topnav :: navbar"></div>
+    <h4>Current Goals:</h4>
 
-    <div class="container-fluid d-flex" style="height: 400px;">
-        <div class="overflow-auto w-50" style="max-height: 100%;">
-            <div th:each="goal : ${goals}" class="card mb-3">
-                <img th:src="@{/images/placeholderbadge.png}" class="card-img-top">
+    <div class="overflow-auto w-50" style="max-height: 100%;">
+        <div th:each="goal : ${goals}" class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${goal.goalName}"></h2>
+                <h2 th:text="${goal.goalType}"></h2>
+                <h2 th:text="'Entry Date: ' + '${goal.entryDate}"></h2>
+                <!-- DistanceGoal -->
+                <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
+                   th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
 
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${goal.goalType}"></h5>
+                <!-- RepGoal -->
+                <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
+                   th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
 
-                    <!-- DistanceGoal -->
-                    <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
-                       th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
-
-                    <!-- RepGoal -->
-                    <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
-                       th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
-
-                    <a href="#" class="btn btn-primary">View Goal</a>
-                </div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid d-flex" style="height: 400px;">
-        <div class="overflow-auto w-50" style="max-height: 100%;">
-            <div th:each="goal : ${goals}" class="card mb-3">
-                <img th:src="@{/images/placeholderbadge.png}" class="card-img-top">
+    <h4>Past Goals:</h4>
 
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${goal.goalType}"></h5>
-
-                    <!-- DistanceGoal -->
-                    <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
-                       th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
-
-                    <!-- RepGoal -->
-                    <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
-                       th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
-
-                    <a href="#" class="btn btn-primary">View Goal</a>
-                </div>
+    <div class="overflow-auto w-50" style="max-height: 100%;">
+        <div th:each="goal : ${completedGoals}" class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${goal.goalName}"></h2>
+                <h2 th:text="${goal.goalType}"></h2>
+                <h2 th:text="'Entry Date: ' + '${goal.entryDate}"></h2>
+                <h2 th:text="'Completion Date:' + '${goal.completionDate}'"></h2>
             </div>
         </div>
     </div>

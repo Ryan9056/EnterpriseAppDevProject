@@ -79,14 +79,14 @@ class GoalServiceTests {
     // Fetches active goals
     private void fetchActiveTestGoal() {
         goalList = goalService.fetchActiveGoals(1);
-        testGoal = goalList.getFirst();
+        testGoal = goalList.get(0);
         testGoal.setCompleted(false);
     }
 
     // Fetches Completed Goals
     private void fetchCompletedTestGoal() {
         goalList = goalService.fetchCompletedGoals(1);
-        testGoal = goalList.getFirst();
+        testGoal = goalList.get(0);
     }
 
     // delete Goal using Goal id then checking is Goal is null
