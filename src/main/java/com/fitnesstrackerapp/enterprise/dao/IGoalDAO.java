@@ -8,7 +8,7 @@ public interface IGoalDAO {
 
     Goal save(Goal goal) throws Exception;
 
-    List<Goal> fetchAll() throws Exception;
+    List<Goal> fetchAll();
 
     void delete(int goalId) throws Exception;
 
