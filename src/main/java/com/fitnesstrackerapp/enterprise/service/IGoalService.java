@@ -15,5 +15,4 @@ public interface IGoalService {
     Goal update(Goal goal) throws Exception;
 
     void delete(int goalId) throws Exception;
-
 }

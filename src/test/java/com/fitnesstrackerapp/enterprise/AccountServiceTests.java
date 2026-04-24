@@ -21,7 +21,7 @@ class AccountServiceTests {
 
     // Test for creating, fetching, and verifying creation of Account using account name and id
     @Test
-    void createAccount_returnsTestAccount() {
+    void createAccount_returnsTestAccount() throws Exception {
         createTestAccount();
         fetchTestAccount();
         returnTestAccount("test");
@@ -29,7 +29,7 @@ class AccountServiceTests {
 
     // Test for creating, fetching, updating, and verifying creation of account using account name and id
     @Test
-    void updateAccount_returnsUpdatedAccount() {
+    void updateAccount_returnsUpdatedAccount() throws Exception {
         createTestAccount();
         fetchTestAccount();
         updateTestAccount();
@@ -38,27 +38,27 @@ class AccountServiceTests {
 
     // Test for creating, deleting and verifying deletion of an account using account name and id
     @Test
-    void deleteAccount_returnsNull() {
+    void deleteAccount_returnsNull() throws Exception {
         createTestAccount();
         deleteTestAccount();
     }
 
     // delete account using account id then checking is account is null
-    private void deleteTestAccount() {
+    private void deleteTestAccount() throws Exception {
         accountService.delete(templateAccount.getAccountId());
         assertNull(accountService.fetchById(templateAccount.getAccountId()));
     }
 
     // create new account then update test account using new account
-    private void updateTestAccount() {
+    private void updateTestAccount() throws Exception {
         updateAccount = new Account();
         updateAccount.setAccountId(2);
         updateAccount.setAccountName("updated");
-        testAccount = accountService.update(updateAccount.getAccountId());
+        testAccount = accountService.update(updateAccount);
     }
 
     // create new account and save new account
-    private void createTestAccount() {
+    private void createTestAccount() throws Exception {
         templateAccount = new Account();
         templateAccount.setAccountId(1);
         templateAccount.setAccountName("test");
@@ -66,7 +66,7 @@ class AccountServiceTests {
     }
 
     // fetch test account with id
-    private void fetchTestAccount() {
+    private void fetchTestAccount() throws Exception {
         testAccount = accountService.fetchById(templateAccount.getAccountId());
     }
 

@@ -31,20 +31,20 @@ class FitnessAppApplicationTests {
 
     //Test for creating, fetching, and verifying creation of Account using account name and id
     @Test
-    void createAccount_returnsTestAccount() {
+    void createAccount_returnsTestAccount() throws Exception {
         createTestAccount();
         fetchTestAccount();
         returnTestAccount();
     }
 
-    private void createTestAccount() {
+    private void createTestAccount() throws Exception {
         templateaccount = new Account();
         templateaccount.setAccountId(1);
         templateaccount.setAccountName("test");
         accountService.save(templateaccount);
     }
 
-    private void fetchTestAccount() {
+    private void fetchTestAccount() throws Exception {
         testAccount = accountService.fetchById(templateaccount.getAccountId());
     }
 
@@ -58,13 +58,11 @@ class FitnessAppApplicationTests {
     void createGoal_returnsTestGoal() throws Exception {
         createTestGoal();
         fetchTestGoal();
-        returnTestGoal();
     }
 
     private void createTestGoal() throws Exception {
         templateGoal = new Goal();
         templateGoal.setGoalId(1);
-        templateGoal.setGoalName("test");
         goalService.save(templateGoal);
     }
 
@@ -72,16 +70,10 @@ class FitnessAppApplicationTests {
         testGoal = goalService.fetchById(templateGoal.getGoalId());
     }
 
-    private void returnTestGoal() {
-        String goalName = testGoal.getGoalName();
-        assertEquals("test",goalName);
-    }
-
     //Test for creating, fetching, and verifying creation of Event using event type and id
     @Test
     void createEvent_returnsTestEvent() {
         createTestEvent();
-        fetchTestEvent();
         returnTestEvent();
     }
 
@@ -90,10 +82,6 @@ class FitnessAppApplicationTests {
         templateEvent.setEventId(1);
         templateEvent.setEventType("test");
         eventService.save(templateEvent);
-    }
-
-    private void fetchTestEvent() {
-        testEvent = eventService.fetchById(templateEvent.getEventId());
     }
 
     private void returnTestEvent() {

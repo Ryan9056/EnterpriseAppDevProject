@@ -4,6 +4,7 @@ import com.fitnesstrackerapp.enterprise.dto.Account;
 import com.fitnesstrackerapp.enterprise.dto.DistanceGoal;
 import com.fitnesstrackerapp.enterprise.dto.Goal;
 import com.fitnesstrackerapp.enterprise.dto.RepGoal;
+import com.fitnesstrackerapp.enterprise.service.IAccountService;
 import com.fitnesstrackerapp.enterprise.service.IGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -50,10 +51,10 @@ public class FitnessAppController {
     }
 
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model) throws Exception {
 
         // gets fake data from FakeGoalService
-        List<Goal> goals = goalService.fetchActiveGoals(1);
+        List<Goal> goals = goalService.fetchAll();
         model.addAttribute("goals", goals);
 
         //List<Goal> goals = goalService.fetchActiveGoals(account.getAccountId());
@@ -75,23 +76,10 @@ public class FitnessAppController {
     }
 
     @GetMapping("/viewGoal")
-    public String viewGoalPage(@RequestParam("goalId") int goalId, Model model) {
+    public String viewGoalPage(@RequestParam("goalId") int goalId, Model model) throws Exception {
         Goal goal = goalService.fetchById(goalId);
         model.addAttribute("goal", goal);
         return "viewGoal";
-    }
-
-    @RequestMapping("/saveGoal")
-    public String saveGoal(Goal goal){
-        try {
-            goalService.save(goal);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return "start";
-        }
-
-        return "start";
     }
 
     @GetMapping("/Goals")
@@ -145,10 +133,9 @@ public class FitnessAppController {
     }
 
     @GetMapping("/allGoal")
-    public String allGoalPage() {
+    public String allGoalPage() throws Exception {
 
-        List<Goal> activeGoals = goalService.fetchActiveGoals(1);
-        List<Goal> inactiveGoals = goalService.fetchCompletedGoals(1);
+        List<Goal> activeGoals = goalService.fetchAll();
         return "allGoal";
     }
 

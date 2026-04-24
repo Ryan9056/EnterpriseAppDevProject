@@ -22,17 +22,15 @@ public class FakeGoalService implements IGoalService {
         DistanceGoal dGoal = new DistanceGoal();
         dGoal.setGoalId(1);
         dGoal.setAccountId(1);
-        dGoal.setGoalType("Miles");
-        dGoal.setDistanceToComplete(5);
-        dGoal.setDistanceCompleted(3);
+        dGoal.setDistanceToComplete(5.0);
+        dGoal.setDistanceCompleted(3.0);
 
         // Rep Goal
         RepGoal repGoal = new RepGoal();
         repGoal.setGoalId(2);
         repGoal.setAccountId(1);
-        repGoal.setGoalType("Sit Ups");
-        repGoal.setRepsToComplete(50);
-        repGoal.setRepsCompleted(9);
+        repGoal.setRepsToComplete(50.0);
+        repGoal.setRepsCompleted(9.0);
 
         testGoals.put(1, dGoal);
         testGoals.put(2, repGoal);
@@ -41,16 +39,6 @@ public class FakeGoalService implements IGoalService {
     @Override
     public Goal fetchById(int id) {
         return testGoals.get(id);
-    }
-
-    @Override
-    public List<Goal> fetchActiveGoals(int accountId) {
-        return new ArrayList<>(testGoals.values());
-    }
-
-    @Override
-    public List<Goal> fetchCompletedGoals(int AccountId) {
-        return List.of();
     }
 
     @Override
@@ -63,12 +51,17 @@ public class FakeGoalService implements IGoalService {
     }
 
     @Override
-    public void delete(int goalId) {
-
+    public List<Goal> fetchAll() throws Exception {
+        return new ArrayList<>(testGoals.values());
     }
 
     @Override
-    public Goal update(int goalId) {
+    public Goal update(Goal goal) throws Exception {
         return null;
+    }
+
+    @Override
+    public void delete(int goalId) {
+
     }
 }
