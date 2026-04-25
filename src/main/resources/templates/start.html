@@ -25,7 +25,9 @@
                 <img th:src="@{/images/placeholderbadge.png}" class="card-img-top">
 
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${goal.goalType}"></h5>
+                    <h5 class="card-title"
+                        th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}">
+                    </h5>
 
                     <!-- DistanceGoal -->
                     <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
@@ -43,7 +45,7 @@
     <div class="w-50 d-flex justify-content-center align-items-center">
         <div class="w-50 d-flex justify-content-center align-items-center">
             <div class="d-flex flex-column gap-8">
-                <a href="" class="btn btn-primary">Check Calendar</a>
+                <a th:href="@{/account}" class="btn btn-primary">Account Info</a>
                 <a th:href="@{/createGoal}" class="btn btn-primary">Create Goal</a>
             </div>
         </div>

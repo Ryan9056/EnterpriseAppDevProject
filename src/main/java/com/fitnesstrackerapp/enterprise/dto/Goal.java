@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * @author Tanner
  * dto with lombok for Goals, this is a superclass of the types of goals, it will be connected to the account
@@ -25,6 +27,15 @@ public class Goal {
     @Column(name = "ACCOUNT_ID", nullable = false)
     private int accountId;
 
+    @Column(name = "GOAL_NAME", nullable = true)
+    private String goalName;
+
+    @Column(name = "IS_COMPLETED", nullable = false)
+    private boolean isCompleted;
+
+    @Column(name = "COMPLETION_DATE", nullable = false)
+    private Date completionDate;
+
     public Goal() {
     }
 
@@ -43,4 +54,16 @@ public class Goal {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    public String getGoalName(){return goalName;}
+
+    public void setGoalName(String goalName){this.goalName = goalName;}
+
+    public boolean getIsCompleted(){return isCompleted;}
+
+    public void setIsCompleted(boolean isCompleted){this.isCompleted = isCompleted;}
+
+    public Date getCompletionDate(){return completionDate;}
+
+    public void setCompletionDate(Date completionDate){this.completionDate = completionDate;}
 }

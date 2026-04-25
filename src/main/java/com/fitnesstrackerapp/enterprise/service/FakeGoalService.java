@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+//@Service
 public class FakeGoalService implements IGoalService {
 
     private final Map<Integer, Goal> testGoals = new HashMap<>();
@@ -53,6 +53,16 @@ public class FakeGoalService implements IGoalService {
     @Override
     public List<Goal> fetchAll() throws Exception {
         return new ArrayList<>(testGoals.values());
+    }
+
+    @Override
+    public List<Goal> AllComplete() throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public List<Goal> InProgress() throws Exception {
+        return List.of();
     }
 
     @Override

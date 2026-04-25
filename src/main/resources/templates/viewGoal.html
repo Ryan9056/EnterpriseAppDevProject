@@ -27,7 +27,7 @@
             <div class="text-center my-3">
                 <img th:src="@{/images/placeholderbadge.png}" alt="Goal badge" class="goal-image">
             </div>
-            <h5 th:text="${goal.goalType}"></h5>
+            <h5  th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}"></h5>
             <p class="card-text" th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
         </div>
         <!-- For Rep Goals -->
@@ -38,7 +38,7 @@
             <div class="text-center my-3">
                 <img th:src="@{/images/placeholderbadge.png}" alt="Goal badge" class="goal-image">
             </div>
-            <h5 th:text="${goal.goalType}"></h5>
+            <h5  th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}"></h5>
             <p class="card-text" th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
         </div>
         <p>
@@ -47,18 +47,20 @@
             </a>
         </p>
         <div class="collapse" id="collapseExample">
-            <div class="form-group">
-                <label for="formGroupExampleInput1">Goal Progress</label>
-                <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="ex: 52">
-            </div>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Save Changes
-            </a>
+            <form action="/updateGoalProgress" method="post">
+                <input type="hidden" name="goalId" th:value="${goal.goalId}">
+
+                <div class="form-group">
+                    <label for="progressInput">Goal Progress</label>
+                    <input type="number" class="form-control" id="progressInput" name="progress" placeholder="ex: 52">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+            <form action="/completeGoal" method="post" class="mt-3">
+                <input type="hidden" name="goalId" th:value="${goal.goalId}">
+                <button type="submit" class="btn btn-success">Complete Goal</button>
+            </form>
         </div>
-        <p>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Complete Goal
-            </a>
-        </p>
     </div>
 </body>

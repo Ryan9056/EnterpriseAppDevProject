@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//@Component
+@Component
 public class GoalServiceStub implements IGoalService {
     @Override
     public Goal fetchById(int goalId) {
@@ -21,6 +21,17 @@ public class GoalServiceStub implements IGoalService {
     public List<Goal> fetchAll() throws Exception {
         return List.of();
     }
+
+    @Override
+    public List<Goal> AllComplete() throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public List<Goal> InProgress() throws Exception {
+        return List.of();
+    }
+
     @Override
     public Goal update(Goal goal) throws Exception {
         return null;

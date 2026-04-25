@@ -55,6 +55,21 @@ public class GoalDAO implements IGoalDAO {
     }
 
     @Override
+    public List<Goal> fetchCompleted() {
+        TypedQuery<Goal> query =
+                entityManager.createQuery("SELECT g FROM Goal g WHERE g.isCompleted = true", Goal.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Goal> fetchNotCompleted() {
+        TypedQuery<Goal> query =
+                entityManager.createQuery("SELECT g FROM Goal g WHERE g.isCompleted = false", Goal.class);
+        return query.getResultList();
+    }
+
+
+    @Override
     @Transactional
     public Goal update(Goal goal) {
 
@@ -71,6 +86,8 @@ public class GoalDAO implements IGoalDAO {
         if (existingGoal == null) {
             throw new RuntimeException("Goal not found with id: " + goal.getGoalId());
         }
+
+        existingGoal.setIsCompleted(goal.getIsCompleted());
 
         if (goal.getAccountId() != 0) {
             existingGoal.setAccountId(goal.getAccountId());

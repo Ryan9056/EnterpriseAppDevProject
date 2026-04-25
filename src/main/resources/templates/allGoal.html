@@ -19,11 +19,12 @@
     <h4>Current Goals:</h4>
 
     <div class="overflow-auto w-50" style="max-height: 100%;">
-        <div th:each="goal : ${goals}" class="card mb-3">
+        <div th:each="goal : ${activeGoals}" class="card mb-3">
             <div class="card-body">
                 <h2 class="card-title" th:text="${goal.goalName}"></h2>
-                <h2 th:text="${goal.goalType}"></h2>
-                <h2 th:text="'Entry Date: ' + '${goal.entryDate}"></h2>
+                <p th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)
+                ? 'Distance Goal'
+                : 'Rep Goal'}"></p>
                 <!-- DistanceGoal -->
                 <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
                    th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
@@ -31,7 +32,7 @@
                 <!-- RepGoal -->
                 <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
                    th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
-
+                <p th:text="'Completion Date: ' + ${goal.completionDate}"></p>
             </div>
         </div>
     </div>
@@ -42,9 +43,10 @@
         <div th:each="goal : ${completedGoals}" class="card mb-3">
             <div class="card-body">
                 <h2 class="card-title" th:text="${goal.goalName}"></h2>
-                <h2 th:text="${goal.goalType}"></h2>
-                <h2 th:text="'Entry Date: ' + '${goal.entryDate}"></h2>
-                <h2 th:text="'Completion Date:' + '${goal.completionDate}'"></h2>
+                <p th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)
+                ? 'Distance Goal'
+                : 'Rep Goal'}"></p>
+                <p th:text="'Completion Date: ' + ${goal.completionDate}"></p>
             </div>
         </div>
     </div>

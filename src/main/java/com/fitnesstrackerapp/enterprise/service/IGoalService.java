@@ -12,6 +12,10 @@ public interface IGoalService {
 
     List<Goal> fetchAll() throws Exception;
 
+    List<Goal> AllComplete() throws Exception;
+
+    List<Goal> InProgress() throws Exception;
+
     Goal update(Goal goal) throws Exception;
 
     void delete(int goalId) throws Exception;

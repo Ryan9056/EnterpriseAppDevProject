@@ -19,6 +19,8 @@ public interface IAccountService {
 
     Account fetchById(int accountId) throws Exception;
 
+    Account fetchByEmail(String email) throws Exception;
+
     /**
      * Saves a new account or updates an existing account.
      *

@@ -10,14 +10,15 @@
                     Pages
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" th:href="@{/}">Home</a>
+                    <a class="dropdown-item" th:href="@{/start}">Home</a>
                     <a class="dropdown-item" th:href="@{/account}">Account</a>
-                    <a class="dropdown-item" th:href="@{/allGoal}">View All Goals</a>
+                    <a class="dropdown-item" th:href="@{/createGoal}">Create Goal</a>
+                    <a class="dropdown-item" th:href="@{/allGoal}">All Goals</a>
                 </div>
             </div>
         </div>
         <div class=" my-2 my-lg-0">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}" type="submit">Login</button>
         </div>
     </nav>
 </div>

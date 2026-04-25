@@ -12,4 +12,6 @@ public interface IAccountDAO {
     List<Account> fetchAll();
 
     Account update(Account account) throws Exception;
+
+    Account fetchByEmail(String email) throws Exception;
 }
