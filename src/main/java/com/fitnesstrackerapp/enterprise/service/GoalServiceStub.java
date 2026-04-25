@@ -1,44 +1,51 @@
 package com.fitnesstrackerapp.enterprise.service;
 
+import com.fitnesstrackerapp.enterprise.dao.IGoalDAO;
 import com.fitnesstrackerapp.enterprise.dto.Goal;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class GoalServiceStub implements IGoalService {
+
+    @Autowired
+    private IGoalDAO goalDAO;
+
     @Override
-    public Goal fetchById(int goalId) {
-        return null;
+    public Goal fetchById(int goalId) throws Exception {
+        return goalDAO.fetchById(goalId);
     }
 
     @Override
-    public Goal save(Goal goal) {
-        return null;
+    public Goal save(Goal goal) throws Exception {
+        return goalDAO.save(goal);
     }
 
     @Override
     public List<Goal> fetchAll() throws Exception {
-        return List.of();
+        return goalDAO.fetchAll();
     }
 
     @Override
     public List<Goal> AllComplete(int accountId) throws Exception {
-        return List.of();
+        return goalDAO.fetchCompleted(accountId);
     }
 
     @Override
     public List<Goal> InProgress(int accountId) throws Exception {
-        return List.of();
+        return goalDAO.fetchNotCompleted(accountId);
     }
 
     @Override
     public Goal update(Goal goal) throws Exception {
-        return null;
+        return goalDAO.update(goal);
     }
 
     @Override
     public void delete(int goalId) throws Exception {
-        return;
+        goalDAO.delete(goalId);
     }
+
 }

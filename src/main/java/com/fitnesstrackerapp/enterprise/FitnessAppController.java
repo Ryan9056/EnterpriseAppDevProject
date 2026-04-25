@@ -1,9 +1,6 @@
 package com.fitnesstrackerapp.enterprise;
 
-import com.fitnesstrackerapp.enterprise.dto.Account;
-import com.fitnesstrackerapp.enterprise.dto.DistanceGoal;
-import com.fitnesstrackerapp.enterprise.dto.Goal;
-import com.fitnesstrackerapp.enterprise.dto.RepGoal;
+import com.fitnesstrackerapp.enterprise.dto.*;
 import com.fitnesstrackerapp.enterprise.service.IAccountService;
 import com.fitnesstrackerapp.enterprise.service.IGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 @SessionAttributes("account")
 @Controller
@@ -139,8 +137,8 @@ public class FitnessAppController {
     @GetMapping("/allGoal")
     public String allGoalPage(Model model, @SessionAttribute("account") Account account) throws Exception {
 
-        List<Goal> activeGoals = goalService.AllComplete(account.getAccountId());
-        List<Goal> completedGoals = goalService.InProgress(account.getAccountId());
+        List<Goal> activeGoals = goalService.InProgress(account.getAccountId());
+        List<Goal> completedGoals = goalService.AllComplete(account.getAccountId());
 
         model.addAttribute("activeGoals", activeGoals);
         model.addAttribute("completedGoals", completedGoals);
@@ -269,6 +267,7 @@ public class FitnessAppController {
         //Refreshes the page
         return "redirect:/viewGoal?goalId=" + goalId;
     }
+    
 
 }
 
