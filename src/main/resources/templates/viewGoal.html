@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Fitness Tracker</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/start.css}">
+</head>
+
+<body>
+    <div th:replace="fragments/topnav :: navbar"></div>
+    <h2>Current Goal:</h2>
+    <br>
+    <div class="text-center mt-4">
+        <!-- For Distance Goals -->
+        <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" th:style="'width:' + (${goal.distanceCompleted} * 100 / ${goal.distanceToComplete}) + '%'" th:aria-valuenow="${goal.distanceCompleted}" aria-valuemin="0" th:aria-valuemax="${goal.distanceToComplete}"></div>
+            </div>
+            <div class="text-center my-3">
+                <img th:src="@{/images/placeholderbadge.png}" alt="Goal badge" class="goal-image">
+            </div>
+            <h5>Distance Goal</h5>
+            <p class="card-text" th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
+        </div>
+        <!-- For Rep Goals -->
+        <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" th:style="'width:' + (${goal.repsCompleted} * 100 / ${goal.repsToComplete}) + '%'" th:aria-valuenow="${goal.repsCompleted}" aria-valuemin="0" th:aria-valuemax="${goal.repsToComplete}"></div>
+            </div>
+            <div class="text-center my-3">
+                <img th:src="@{/images/placeholderbadge.png}" alt="Goal badge" class="goal-image">
+            </div>
+            <h5>Rep Goal</h5>
+            <p class="card-text" th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
+        </div>
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Update Goal
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <form action="/updateGoalProgress" method="post">
+                <input type="hidden" name="goalId" th:value="${goal.goalId}">
+
+                <div class="form-group">
+                    <label for="progressInput">Goal Progress</label>
+                    <input type="number" class="form-control" id="progressInput" name="progress" placeholder="ex: 52">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+            <form action="/completeGoal" method="post" class="mt-3">
+                <input type="hidden" name="goalId" th:value="${goal.goalId}">
+                <button type="submit" class="btn btn-success">Complete Goal</button>
+            </form>
+        </div>
+    </div>
+</body>

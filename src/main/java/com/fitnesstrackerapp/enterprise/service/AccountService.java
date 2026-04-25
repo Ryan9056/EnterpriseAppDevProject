@@ -18,6 +18,11 @@ public class AccountService implements IAccountService{
     }
 
     @Override
+    public Account fetchByEmail(String email) throws Exception {
+        return accountDAO.fetchByEmail(email);
+    }
+
+    @Override
     public Account save(Account account) throws Exception {
         return accountDAO.save(account);
     }

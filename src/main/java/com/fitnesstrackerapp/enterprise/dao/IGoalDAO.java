@@ -10,6 +10,10 @@ public interface IGoalDAO {
 
     List<Goal> fetchAll();
 
+    List<Goal> fetchCompleted(int accountId);
+
+    List<Goal> fetchNotCompleted(int accountId);
+
     void delete(int goalId) throws Exception;
 
     Goal update(Goal goal) throws Exception;

@@ -29,6 +29,16 @@ public class GoalService implements IGoalService {
     }
 
     @Override
+    public List<Goal> AllComplete(int accountId) throws Exception {
+        return goalDAO.fetchCompleted(accountId);
+    }
+
+    @Override
+    public List<Goal> InProgress(int accountId) throws Exception {
+        return goalDAO.fetchNotCompleted(accountId);
+    }
+
+    @Override
     public Goal update(Goal goal) throws Exception {
         return goalDAO.update(goal);
     }

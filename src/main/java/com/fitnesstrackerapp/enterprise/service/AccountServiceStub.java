@@ -14,6 +14,11 @@ public class AccountServiceStub implements IAccountService {
     }
 
     @Override
+    public Account fetchByEmail(String email) throws Exception {
+        return null;
+    }
+
+    @Override
     public Account save(Account account) {
         return null;
     }

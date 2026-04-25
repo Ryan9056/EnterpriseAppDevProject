@@ -21,6 +21,17 @@ public class GoalServiceStub implements IGoalService {
     public List<Goal> fetchAll() throws Exception {
         return List.of();
     }
+
+    @Override
+    public List<Goal> AllComplete(int accountId) throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public List<Goal> InProgress(int accountId) throws Exception {
+        return List.of();
+    }
+
     @Override
     public Goal update(Goal goal) throws Exception {
         return null;
@@ -29,4 +40,5 @@ public class GoalServiceStub implements IGoalService {
     @Override
     public void delete(int goalId) throws Exception {
         return;
-    }}
+    }
+}

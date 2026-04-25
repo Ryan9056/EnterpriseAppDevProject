@@ -3,10 +3,12 @@ package com.fitnesstrackerapp.enterprise.dao;
 import com.fitnesstrackerapp.enterprise.dto.Account;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Slf4j
 @Repository
 public class AccountDAO implements IAccountDAO {
 
@@ -90,6 +92,22 @@ public class AccountDAO implements IAccountDAO {
         }
 
         return existing; // JPA should persist changes automatically
+    }
+
+    @Override
+    public Account fetchByEmail(String email) throws Exception {
+
+        try {
+            String jpql = "SELECT a FROM Account a WHERE a.email = :email";
+            List<Account> results = entityManager.createQuery(jpql, Account.class)
+                    .setParameter("email", email)
+                    .getResultList();
+
+            return results.isEmpty() ? null : results.get(0);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching account by email", e);
+        }
     }
 
     @Override
