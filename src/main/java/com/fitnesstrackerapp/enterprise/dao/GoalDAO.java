@@ -55,16 +55,22 @@ public class GoalDAO implements IGoalDAO {
     }
 
     @Override
-    public List<Goal> fetchCompleted() {
-        TypedQuery<Goal> query =
-                entityManager.createQuery("SELECT g FROM Goal g WHERE g.isCompleted = true", Goal.class);
+    public List<Goal> fetchCompleted(int accountId) {
+        TypedQuery<Goal> query = entityManager.createQuery(
+                "SELECT g FROM Goal g WHERE g.accountId = :accountId",
+                Goal.class
+        );
+        query.setParameter("accountId", accountId);
         return query.getResultList();
     }
 
     @Override
-    public List<Goal> fetchNotCompleted() {
-        TypedQuery<Goal> query =
-                entityManager.createQuery("SELECT g FROM Goal g WHERE g.isCompleted = false", Goal.class);
+    public List<Goal> fetchNotCompleted(int accountId) {
+        TypedQuery<Goal> query = entityManager.createQuery(
+                "SELECT g FROM Goal g WHERE g.accountId = :accountId AND g.isCompleted = false",
+                Goal.class
+        );
+        query.setParameter("accountId", accountId);
         return query.getResultList();
     }
 

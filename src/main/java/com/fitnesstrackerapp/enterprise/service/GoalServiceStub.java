@@ -23,12 +23,12 @@ public class GoalServiceStub implements IGoalService {
     }
 
     @Override
-    public List<Goal> AllComplete() throws Exception {
+    public List<Goal> AllComplete(int accountId) throws Exception {
         return List.of();
     }
 
     @Override
-    public List<Goal> InProgress() throws Exception {
+    public List<Goal> InProgress(int accountId) throws Exception {
         return List.of();
     }
 

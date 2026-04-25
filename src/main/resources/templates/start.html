@@ -26,9 +26,9 @@
 
                 <div class="card-body">
                     <h5 class="card-title"
-                        th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}">
+                        th:text="${goal.goalName}">
                     </h5>
-
+                    <p th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}"></p>
                     <!-- DistanceGoal -->
                     <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
                        th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>

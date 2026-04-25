@@ -43,10 +43,9 @@ public class FitnessAppController {
     IAccountService accountService;
 
     @RequestMapping("/start")
-    public String index(Model model) throws Exception {
+    public String index(Model model, @SessionAttribute("account") Account account) throws Exception {
 
-        // gets fake data from FakeGoalService
-        List<Goal> goals = goalService.fetchAll();
+        List<Goal> goals = goalService.InProgress(account.getAccountId());
         model.addAttribute("goals", goals);
 
         //List<Goal> goals = goalService.fetchActiveGoals(account.getAccountId());
@@ -162,7 +161,7 @@ public class FitnessAppController {
 
         accountService.save(account);
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @PostMapping("/updateAccount")
@@ -222,7 +221,7 @@ public class FitnessAppController {
         goal.setAccountId(account.getAccountId());
         goalService.save(goal);
 
-        return "redirect:/";
+        return "redirect:/start";
     }
 
     @PostMapping("/updateGoalProgress")
@@ -256,10 +255,10 @@ public class FitnessAppController {
 
 
     @GetMapping("/allGoal")
-    public String allGoalPage(Model model) throws Exception {
+    public String allGoalPage(Model model, @SessionAttribute("account") Account account) throws Exception {
 
-        List<Goal> activeGoals = goalService.AllComplete();
-        List<Goal> completedGoals = goalService.InProgress();
+        List<Goal> activeGoals = goalService.AllComplete(account.getAccountId());
+        List<Goal> completedGoals = goalService.InProgress(account.getAccountId());
 
         model.addAttribute("activeGoals", activeGoals);
         model.addAttribute("completedGoals", completedGoals);

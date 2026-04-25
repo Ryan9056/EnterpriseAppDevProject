@@ -10,9 +10,9 @@ public interface IGoalDAO {
 
     List<Goal> fetchAll();
 
-    List<Goal> fetchCompleted();
+    List<Goal> fetchCompleted(int accountId);
 
-    List<Goal> fetchNotCompleted();
+    List<Goal> fetchNotCompleted(int accountId);
 
     void delete(int goalId) throws Exception;
 

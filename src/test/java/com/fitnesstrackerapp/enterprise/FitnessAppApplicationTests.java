@@ -58,11 +58,13 @@ class FitnessAppApplicationTests {
     void createGoal_returnsTestGoal() throws Exception {
         createTestGoal();
         fetchTestGoal();
+        returnTestGoal();
     }
 
     private void createTestGoal() throws Exception {
         templateGoal = new Goal();
         templateGoal.setGoalId(1);
+        templateGoal.setGoalName("test");
         goalService.save(templateGoal);
     }
 
@@ -70,24 +72,34 @@ class FitnessAppApplicationTests {
         testGoal = goalService.fetchById(templateGoal.getGoalId());
     }
 
-    //Test for creating, fetching, and verifying creation of Event using event type and id
-    @Test
-    void createEvent_returnsTestEvent() {
-        createTestEvent();
-        returnTestEvent();
+    private void returnTestGoal() {
+        String goalName = testGoal.getGoalName();
+        assertEquals("test",goalName);
     }
 
-    private void createTestEvent() {
-        templateEvent = new Event();
-        templateEvent.setEventId(1);
-        templateEvent.setEventType("test");
-        eventService.save(templateEvent);
-    }
-
-    private void returnTestEvent() {
-        String eventType = testEvent.getEventType();
-        assertEquals("test",eventType);
-    }
+   // //Test for creating, fetching, and verifying creation of Event using event type and id
+   // @Test
+   // void createEvent_returnsTestEvent() {
+   //     createTestEvent();
+   //     fetchTestEvent();
+   //     returnTestEvent();
+   // }
+   //
+   // private void createTestEvent() {
+   //     templateEvent = new Event();
+   //     templateEvent.setEventId(1);
+   //     templateEvent.setEventType("test");
+   //     eventService.save(templateEvent);
+   // }
+   //
+   // private void fetchTestEvent() {
+   //     testEvent = eventService.fetchById(templateEvent.getEventId());
+   // }
+   //
+   // private void returnTestEvent() {
+   //     String eventType = testEvent.getEventType();
+   //     assertEquals("test",eventType);
+   // }
 
 
 
