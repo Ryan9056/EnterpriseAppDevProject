@@ -1,7 +1,6 @@
 package com.fitnesstrackerapp.enterprise.service;
 
 import com.fitnesstrackerapp.enterprise.dto.Goal;
-
 import java.util.List;
 
 public interface IGoalService {
@@ -19,4 +18,5 @@ public interface IGoalService {
     Goal update(Goal goal) throws Exception;
 
     void delete(int goalId) throws Exception;
+
 }

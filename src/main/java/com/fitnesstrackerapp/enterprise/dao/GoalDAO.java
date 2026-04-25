@@ -8,7 +8,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -16,6 +15,8 @@ public class GoalDAO implements IGoalDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+
 
     @Override
     public Goal fetchById(int goalId) throws Exception {
@@ -57,7 +58,7 @@ public class GoalDAO implements IGoalDAO {
     @Override
     public List<Goal> fetchCompleted(int accountId) {
         TypedQuery<Goal> query = entityManager.createQuery(
-                "SELECT g FROM Goal g WHERE g.accountId = :accountId",
+                "SELECT g FROM Goal g WHERE g.accountId = :accountId AND g.isCompleted = true",
                 Goal.class
         );
         query.setParameter("accountId", accountId);
@@ -131,6 +132,7 @@ public class GoalDAO implements IGoalDAO {
 
         throw new RuntimeException("Goal type mismatch for id: " + goal.getGoalId());
     }
+
 
     @Override
     @Transactional
