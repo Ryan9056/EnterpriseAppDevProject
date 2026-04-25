@@ -27,7 +27,7 @@
             <div class="text-center my-3">
                 <img th:src="@{/images/placeholderbadge.png}" alt="Goal badge" class="goal-image">
             </div>
-            <h5  th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}"></h5>
+            <h5>Distance Goal</h5>
             <p class="card-text" th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
         </div>
         <!-- For Rep Goals -->
@@ -38,7 +38,7 @@
             <div class="text-center my-3">
                 <img th:src="@{/images/placeholderbadge.png}" alt="Goal badge" class="goal-image">
             </div>
-            <h5  th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal) ? 'Distance Goal' : 'Rep Goal'}"></h5>
+            <h5>Rep Goal</h5>
             <p class="card-text" th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
         </div>
         <p>

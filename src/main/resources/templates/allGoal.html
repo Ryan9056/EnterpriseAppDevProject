@@ -22,16 +22,17 @@
         <div th:each="goal : ${activeGoals}" class="card mb-3">
             <div class="card-body">
                 <h2 class="card-title" th:text="${goal.goalName}"></h2>
-                <p th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)
-                ? 'Distance Goal'
-                : 'Rep Goal'}"></p>
                 <!-- DistanceGoal -->
-                <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}"
-                   th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
+                <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}">
+                    <p>Distance Goal</p>
+                    <p th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
+                </div>
 
                 <!-- RepGoal -->
-                <p th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}"
-                   th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
+                <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}">
+                    <p>Rep Goal</p>
+                    <p th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
+                </div>
                 <p th:text="'Completion Date: ' + ${goal.completionDate}"></p>
             </div>
         </div>

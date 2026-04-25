@@ -66,6 +66,29 @@ public class FitnessAppController {
         return "start";
     }
 
+    @GetMapping("/")
+    public String loginPage(Model model) {
+        model.addAttribute("account", new Account());
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String registerPage(Model model) {
+        model.addAttribute("account", new Account());
+        return "register";
+    }
+
+    //Created Page map for the UI
+    @GetMapping("/createGoal")
+    public String createGoalPage() {
+        return "createGoal";
+    }
+
+    @GetMapping("/account")
+    public String accountPage(Model model) {
+        return "account";
+    }
+
     @GetMapping("/viewGoal")
     public String viewGoalPage(@RequestParam("goalId") int goalId, Model model) throws Exception {
         Goal goal = goalService.fetchById(goalId);
@@ -112,27 +135,16 @@ public class FitnessAppController {
         }
         return "start";
     }
-    //Created Page map for the UI
-    @GetMapping("/createGoal")
-    public String createGoalPage() {
-        return "createGoal";
-    }
 
-    @GetMapping("/account")
-    public String accountPage(Model model) {
-        return "account";
-    }
+    @GetMapping("/allGoal")
+    public String allGoalPage(Model model, @SessionAttribute("account") Account account) throws Exception {
 
-    @GetMapping("/")
-    public String loginPage(Model model) {
-        model.addAttribute("account", new Account());
-        return "login";
-    }
+        List<Goal> activeGoals = goalService.AllComplete(account.getAccountId());
+        List<Goal> completedGoals = goalService.InProgress(account.getAccountId());
 
-    @GetMapping("/register")
-    public String registerPage(Model model) {
-        model.addAttribute("account", new Account());
-        return "register";
+        model.addAttribute("activeGoals", activeGoals);
+        model.addAttribute("completedGoals", completedGoals);
+        return "allGoal";
     }
 
     @PostMapping("/login")
@@ -146,6 +158,7 @@ public class FitnessAppController {
 
         model.addAttribute("account", existing); // stored in session
 
+        //Sends the user to the homepage
         return "redirect:/start";
     }
 
@@ -161,6 +174,7 @@ public class FitnessAppController {
 
         accountService.save(account);
 
+        //Returns the user to the Account page
         return "redirect:/";
     }
 
@@ -189,6 +203,7 @@ public class FitnessAppController {
         // Update session so navbar + pages show new info
         model.addAttribute("account", account);
 
+        //Refreshes the page
         return "redirect:/account";
     }
 
@@ -221,6 +236,7 @@ public class FitnessAppController {
         goal.setAccountId(account.getAccountId());
         goalService.save(goal);
 
+        //returns the user to homepage
         return "redirect:/start";
     }
 
@@ -240,6 +256,7 @@ public class FitnessAppController {
 
         goalService.update(goal);
 
+        //refreshes the page
         return "redirect:/viewGoal?goalId=" + goalId;
     }
 
@@ -249,22 +266,9 @@ public class FitnessAppController {
         goal.setIsCompleted(true);
         goalService.update(goal);
 
+        //Refreshes the page
         return "redirect:/viewGoal?goalId=" + goalId;
     }
-
-
-
-    @GetMapping("/allGoal")
-    public String allGoalPage(Model model, @SessionAttribute("account") Account account) throws Exception {
-
-        List<Goal> activeGoals = goalService.AllComplete(account.getAccountId());
-        List<Goal> completedGoals = goalService.InProgress(account.getAccountId());
-
-        model.addAttribute("activeGoals", activeGoals);
-        model.addAttribute("completedGoals", completedGoals);
-        return "allGoal";
-    }
-
 
 }
 
