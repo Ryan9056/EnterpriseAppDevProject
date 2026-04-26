@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Fitness Tracker</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/start.css}">
+</head>
+
+<body>
+    <div th:replace="fragments/topnav :: navbar"></div>
+    <h4>Current Goals:</h4>
+
+    <div class="overflow-auto w-50" style="max-height: 100%;">
+        <div th:each="goal : ${activeGoals}" class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${goal.goalName}"></h2>
+                <!-- DistanceGoal -->
+                <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}">
+                    <p>Distance Goal</p>
+                    <p th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
+                </div>
+
+                <!-- RepGoal -->
+                <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}">
+                    <p>Rep Goal</p>
+                    <p th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
+                </div>
+                <p th:text="'Completion Date: ' + ${goal.completionDate}"></p>
+            </div>
+        </div>
+    </div>
+
+    <h4>Completed Goals:</h4>
+
+    <div class="overflow-auto w-50" style="max-height: 100%;">
+        <div th:each="goal : ${completedGoals}" class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${goal.goalName}"></h2>
+                <p th:text="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)
+                ? 'Distance Goal'
+                : 'Rep Goal'}"></p>
+                <p th:text="'Completion Date: ' + ${goal.completionDate}"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -11,6 +11,36 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script type="text/javascript">
+
+        let exerciseList = [];
+
+        // Fetch once when page loads
+        $.getJSON("https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json", function(data) {
+            exerciseList = data.map(exercise => exercise.name);
+        });
+
+        $(function() {
+            $("#formGroupExampleInput1").autocomplete({
+                source: function(request, response) {
+                    // filter locally from cached list
+                    const term = request.term.toLowerCase();
+                    const matches = exerciseList.filter(name =>
+                        name.toLowerCase().includes(term)
+                    );
+                    response(matches.slice(0, 10));
+                },
+                minLength: 2
+            });
+        });
+
+    </script>
+
     <link rel="stylesheet" th:href="@{/start.css}">
 </head>
 
@@ -18,38 +48,26 @@
     <div th:replace="fragments/topnav :: navbar"></div>
     <h2>Create Goal:</h2>
     <br>
-    <form>
+    <form action="/createGoal" method="post" th:object="${goal}">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" name="goalType" id="exampleFormControlSelect1">
                 <option>Distance</option>
                 <option>Rep</option>
-                <option>Workout #</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="formGroupExampleInput1">Goal Name</label>
+            <input type="text" name="goalName" class="form-control" id="formGroupExampleInput1" placeholder="Name" >
+
         </div>
         <div class="form-group">
-            <label for="formGroupExampleInput1">Goal #</label>
-            <input type="text" class="form-control" id="formGroupExampleInput1" placeholder="ex: 52">
+            <label for="formGroupExampleInput2">Desired Goal # (reps or distance)</label>
+            <input type="text" class="form-control" name="targetAmount" id="formGroupExampleInput2" placeholder="ex: 52">
         </div>
         <label for="formGroupDate">Completion Date: </label>
-        <div class="form-row" id="formGroupDate">
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom01">Date</label>
-                <input type="text" class="form-control" id="validationCustom01" placeholder="xx" required>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom02">Month</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="xx" required>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom03">Year</label>
-                <input type="text" class="form-control" id="validationCustom03" placeholder="xxxx" required>
-            </div>
-        </div>
+        <input type="date" class="form-control" name="completionDate" id="formGroupDate">
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
 </body>

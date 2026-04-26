@@ -21,28 +21,35 @@
 
     <div class="container-fluid d-flex" style="height: 400px;">
         <div class="overflow-auto w-50" style="max-height: 100%;">
-            <div class="card">
-                <img th:src="@{/images/placeholderbadge.png}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${dGoal.goalType}"></h5>
-                    <p class="card-text" th:text="${dGoal.distanceToComplete} + '/' + ${dGoal.distanceCompleted} + ' Completed'"></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            <div th:each="goal : ${goals}" class="card mb-3">
+                <img th:src="@{/images/placeholderbadge.png}" class="card-img-top">
 
-            <div class="card">
-                <img th:src="@{/images/placeholderbadge.png}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${repGoal.goalType}"></h5>
-                    <p class="card-text" th:text="${repGoal.repsCompleted} + '/' + ${repGoal.repsToComplete} + ' Completed'"></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title"
+                        th:text="${goal.goalName}">
+                    </h5>
+
+                    <!-- DistanceGoal -->
+                    <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.DistanceGoal)}">
+                        <p>Distance Goal</p>
+                        <p th:text="${goal.distanceCompleted} + '/' + ${goal.distanceToComplete} + ' Completed'"></p>
+                    </div>
+
+                    <!-- RepGoal -->
+                    <div th:if="${goal instanceof T(com.fitnesstrackerapp.enterprise.dto.RepGoal)}">
+                        <p>Rep Goal</p>
+                       <p th:text="${goal.repsCompleted} + '/' + ${goal.repsToComplete} + ' Completed'"></p>
+                    </div>
+
+                    <a th:href="@{/viewGoal(goalId=${goal.goalId})}" class="btn btn-primary">View Goal</a>
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="w-50 d-flex justify-content-center align-items-center">
         <div class="w-50 d-flex justify-content-center align-items-center">
             <div class="d-flex flex-column gap-8">
-                <a href="" class="btn btn-primary">Check Calendar</a>
+                <a th:href="@{/allGoal}" class="btn btn-primary">All Goals</a>
                 <a th:href="@{/createGoal}" class="btn btn-primary">Create Goal</a>
             </div>
         </div>

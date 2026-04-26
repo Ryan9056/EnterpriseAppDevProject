@@ -23,7 +23,14 @@ h3 {
 
 .card {
     width: 27rem;
-    padding: 1rem;
+    padding: .5rem;
+}
+
+.goal-image {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain;
+    display: block;
 }
 
 .otherButtons a {
