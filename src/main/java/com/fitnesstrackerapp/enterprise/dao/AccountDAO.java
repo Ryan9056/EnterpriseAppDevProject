@@ -8,13 +8,29 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Data Access Object (DAO) for Account entities.
+ * <p>
+ * This class provides CRUD operations for Account objects using JPA and the EntityManager.
+ * It is responsible for interacting directly with the database layer.
+ */
 @Slf4j
 @Repository
 public class AccountDAO implements IAccountDAO {
 
+    /**
+     * Injected JPA EntityManager used for database operations.
+     */
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Fetches an Account by its unique identifier.
+     *
+     * @param accountId the unique ID of the account
+     * @return the Account associated with the given ID
+     * @throws RuntimeException if the ID is invalid or the account does not exist
+     */
     @Override
     public Account fetchById(int accountId) {
 
@@ -31,6 +47,14 @@ public class AccountDAO implements IAccountDAO {
         return account;
     }
 
+    /**
+     * Persists a new Account to the database.
+     *
+     * @param account the Account object to be saved
+     * @return the persisted Account
+     * @throws RuntimeException if the account is null, has an existing ID,
+     *                          or required fields are missing
+     */
     @Override
     @Transactional
     public Account save(Account account) {
@@ -59,6 +83,17 @@ public class AccountDAO implements IAccountDAO {
         return account;
     }
 
+    /**
+     * Updates an existing Account in the database.
+     * <p>
+     * Only fields provided (non-null and non-empty) will be updated.
+     * Other fields will remain unchanged.
+     *
+     * @param account the Account object containing updated values
+     * @return the updated Account entity
+     * @throws RuntimeException if the account is null, has no ID,
+     *                          or does not exist in the database
+     */
     @Override
     @Transactional
     public Account update(Account account) {
@@ -94,6 +129,13 @@ public class AccountDAO implements IAccountDAO {
         return existing; // JPA should persist changes automatically
     }
 
+    /**
+     * Retrieves an Account by its email address.
+     *
+     * @param email the email associated with the account
+     * @return the Account if found, or null if no account exists with the given email
+     * @throws RuntimeException if an error occurs during query execution
+     */
     @Override
     public Account fetchByEmail(String email) throws Exception {
 
@@ -110,6 +152,12 @@ public class AccountDAO implements IAccountDAO {
         }
     }
 
+    /**
+     * Deletes an Account from the database by its ID.
+     *
+     * @param accountId the ID of the account to delete
+     * @throws RuntimeException if the ID is invalid or the account does not exist
+     */
     @Override
     @Transactional
     public void delete(int accountId) {
@@ -127,6 +175,11 @@ public class AccountDAO implements IAccountDAO {
         entityManager.remove(account);
     }
 
+    /**
+     * Retrieves all Account records from the database.
+     *
+     * @return a list of all accounts; returns an empty list if none exist
+     */
     @Override
     public List<Account> fetchAll() {
         TypedQuery<Account> query = entityManager.createQuery(

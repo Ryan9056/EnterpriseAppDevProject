@@ -2,16 +2,21 @@ package com.fitnesstrackerapp.enterprise.dto;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.util.Date;
 
 /**
+ * Represents a base Goal entity in the system.
+ * <p>
+ * This class serves as the superclass for all goal types (e.g., DistanceGoal, RepGoal)
+ * and is mapped to the "goals" table using single-table inheritance.
+ * Subclasses are distinguished by a discriminator column ("goal_type").
+ *
+ * Each goal is associated with an account via the accountId field,
+ * which acts as a foreign key linking goals to users.
+ *
  * @author Tanner
- * dto with lombok for Goals, this is a superclass of the types of goals, it will be connected to the account
- * through the accountId, which will be considered a foreign key once we do the local db work.
- * This way once the account is logged in they will see their goals.
  */
 @Entity
 @Table(name = "goals")

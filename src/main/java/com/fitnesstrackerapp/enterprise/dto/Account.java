@@ -3,9 +3,13 @@ package com.fitnesstrackerapp.enterprise.dto;
 import jakarta.persistence.*;
 
 /**
+ * Represents an Account entity in the system.
+ * <p>
+ * This class is mapped to the "accounts" table and stores user information
+ * used for authentication and association with goals.
+ * Each account can be linked to multiple goals via the accountId field.
+ *
  * @author Tanner
- * dto for the Accounts, this will be used for log in and the goals will be connected using
- * the accountId
  */
 @Entity
 @Table(name = "accounts")

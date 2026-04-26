@@ -5,9 +5,14 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 /**
+ * Represents a repetition-based Goal in the system.
+ * <p>
+ * This class extends the Goal entity and is used when a user selects a goal
+ * measured by repetitions (e.g., push-ups, sit-ups).
+ * It is part of a single-table inheritance hierarchy and is distinguished
+ * using a discriminator value of "REP".
+ *
  * @author Tanner
- * dto with lombok for the RepGoals, this is a subclass of goal that will be used when a user picks a rep
- * goal as their goal type
  */
 @Entity
 @DiscriminatorValue("REP")

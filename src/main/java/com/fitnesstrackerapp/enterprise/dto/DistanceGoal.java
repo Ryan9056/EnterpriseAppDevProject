@@ -3,9 +3,14 @@ package com.fitnesstrackerapp.enterprise.dto;
 import jakarta.persistence.*;
 
 /**
+ * Represents a Distance-based Goal in the system.
+ * <p>
+ * This class extends the Goal entity and is used when a user selects a goal
+ * that is measured by distance (e.g., miles or kilometers).
+ * It is part of a single-table inheritance hierarchy and is distinguished
+ * using a discriminator value of "DISTANCE".
+ *
  * @author Tanner
- * dto for the DistanceGoals, this is a subclass of goal that will be used when a user picks a distance
- * goal as their goal type
  */
 
 @Entity

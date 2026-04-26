@@ -10,14 +10,29 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+/**
+ * Data Access Object (DAO) for Goal entities.
+ * <p>
+ * Provides CRUD operations and specialized queries for goals, including
+ * filtering based on completion status. Supports polymorphic handling
+ * of DistanceGoal and RepGoal subclasses.
+ */
 @Repository
 public class GoalDAO implements IGoalDAO {
 
+    /**
+     * JPA EntityManager used for database interactions.
+     */
     @PersistenceContext
     private EntityManager entityManager;
 
-
-
+    /**
+     * Retrieves a Goal by its unique identifier.
+     *
+     * @param goalId the ID of the goal
+     * @return the Goal associated with the given ID
+     * @throws Exception if the goal is not found
+     */
     @Override
     public Goal fetchById(int goalId) throws Exception {
         Goal goal = entityManager.find(Goal.class, goalId);
@@ -29,6 +44,13 @@ public class GoalDAO implements IGoalDAO {
         return goal;
     }
 
+    /**
+     * Persists a new Goal to the database.
+     *
+     * @param goal the Goal to be saved
+     * @return the persisted Goal
+     * @throws RuntimeException if the goal is invalid or already has an ID
+     */
     @Override
     @Transactional
     public Goal save(Goal goal) {
@@ -48,6 +70,11 @@ public class GoalDAO implements IGoalDAO {
         return goal;
     }
 
+    /**
+     * Retrieves all goals from the database.
+     *
+     * @return a list of all goals; empty if none exist
+     */
     @Override
     public List<Goal> fetchAll() {
         TypedQuery<Goal> query =
@@ -55,6 +82,12 @@ public class GoalDAO implements IGoalDAO {
         return query.getResultList();
     }
 
+    /**
+     * Retrieves all completed goals for a specific account.
+     *
+     * @param accountId the ID of the account
+     * @return a list of completed goals
+     */
     @Override
     public List<Goal> fetchCompleted(int accountId) {
         TypedQuery<Goal> query = entityManager.createQuery(
@@ -65,6 +98,12 @@ public class GoalDAO implements IGoalDAO {
         return query.getResultList();
     }
 
+    /**
+     * Retrieves all incomplete goals for a specific account.
+     *
+     * @param accountId the ID of the account
+     * @return a list of incomplete goals
+     */
     @Override
     public List<Goal> fetchNotCompleted(int accountId) {
         TypedQuery<Goal> query = entityManager.createQuery(
@@ -75,7 +114,16 @@ public class GoalDAO implements IGoalDAO {
         return query.getResultList();
     }
 
-
+    /**
+     * Updates an existing Goal in the database.
+     * <p>
+     * Only non-null fields are updated. Handles subclass-specific
+     * fields for DistanceGoal and RepGoal.
+     *
+     * @param goal the Goal containing updated values
+     * @return the updated Goal entity
+     * @throws RuntimeException if the goal is invalid, not found, or mismatched type
+     */
     @Override
     @Transactional
     public Goal update(Goal goal) {
@@ -134,6 +182,13 @@ public class GoalDAO implements IGoalDAO {
     }
 
 
+
+    /**
+     * Deletes a Goal from the database by its ID.
+     *
+     * @param goalId the ID of the goal to delete
+     * @throws RuntimeException if the ID is invalid or the goal does not exist
+     */
     @Override
     @Transactional
     public void delete(int goalId) {
